@@ -13,7 +13,7 @@ class Song
 
   def self.create
     song = self.new
-    song.name = name
+    #song.name = name
     song.save
     song
   end
@@ -21,15 +21,15 @@ class Song
   def self.new_by_name(name)
     song = self.new
     song.name = name
-    song.save
+    #song.save
     song
 
   end
 
   def self.create_by_name(name)
-    song = self.new
+    song = self.create
     song.name = name
-    song.save
+    #song.save create already save the song
     song
   end
 
@@ -40,12 +40,15 @@ class Song
     end
   end
 
-  def self.find_or_create_by_name(name)
-    if self.all.include?(name)
-      self.all
-    else
-      self.create_by_name(name)
-    end
+  def self.find_or_create_by_name(song_name)
+
+    self.find_by_name(song_name) || self.create_by_name(song_name)
+
+    # if self.all.include?(name)
+    #   self.all
+    # else
+    #   self.create_by_name(name)
+    # end
   end
 
   def self.alphabetical
@@ -61,6 +64,17 @@ class Song
     song.name = file_array[1].strip
     song.artist_name = file_array[0].strip
     song
+
+    # solution
+    # parts = filename.split(" - ")
+    # artist_name = parts[0]
+    # song_name = parts[1].gsub(".mp3", "")
+
+    # song = self.new
+    # song.name = song_name
+    # song.artist_name = artist_name
+    # song
+
   end
 
   def self.create_from_filename(filename)
@@ -69,6 +83,16 @@ class Song
     song.name = file_array[1].strip
     song.artist_name = file_array[0].strip
     song.save
+
+    #solution
+    # parts = filename.split(" - ")
+    # artist_name = parts[0]
+    # song_name = parts[1].gsub(".mp3", "")
+
+    # song = self.create
+    # song.name = song_name
+    # song.artist_name = artist_name
+    # song
 
   end
 
